@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Treino</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="app-layout">
+
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+
+    <main class="main-content">
+        <div class="dashboard-container" style="max-width: 800px;">
+
+            <div class="header" style="align-items: center;">
+                <div>
+                    <h2 style="margin-bottom: 5px;">Treino: <span th:text="${ficha.nomeTreino}" style="color: var(--cor-primaria);"></span></h2>
+                    <p style="color: #666; margin: 0; font-weight: bold;">Dia: <span th:text="${ficha.diaDaSemana ?: 'Livre'}"></span></p>
+                </div>
+
+                <a th:if="${session.usuarioLogado.perfil == 'ADMIN'}" th:href="@{/admin/fichas-aluno/{id}(id=${ficha.usuario.id})}" class="btn btn-secundario">← Voltar</a>
+                <a th:if="${session.usuarioLogado.perfil == 'USER'}" th:href="@{/painel}" class="btn btn-secundario">← Voltar</a>
+            </div>
+
+            <p th:if="${session.usuarioLogado.perfil == 'USER'}" style="color: #666; margin-bottom: 20px;">
+                Toque nos exercícios abaixo à medida que for finalizando as séries para acompanhar o seu progresso!
+            </p>
+            <p th:if="${session.usuarioLogado.perfil == 'ADMIN'}" style="color: #666; margin-bottom: 20px;">
+                A visualizar e a gerir os exercícios desta ficha.
+            </p>
+
+            <div th:if="${session.usuarioLogado.perfil == 'USER'}" class="progress-container">
+                <div id="progress-bar"></div>
+                <span id="progress-text">0 de 0 concluídos (0%)</span>
+            </div>
+
+            <div th:if="${session.usuarioLogado.perfil == 'ADMIN'}" style="margin-bottom: 20px;">
+                <a th:href="@{/ficha/{id}/novo-exercicio(id=${ficha.id})}" class="btn btn-primario">
+                    <i class="fas fa-plus"></i> Adicionar Exercício
+                </a>
+            </div>
+
+            <div class="exercicios-lista" th:if="${not #lists.isEmpty(exercicios)}">
+
+                <div th:each="ex : ${exercicios}"
+                     class="exercicio-card"
+                     th:data-id="${ex.id}"
+                     th:onclick="${session.usuarioLogado.perfil == 'USER'} ? 'toggleExercicio(this)' : null"
+                     th:style="${session.usuarioLogado.perfil == 'ADMIN'} ? 'cursor: default;' : 'cursor: pointer;'">
+
+                    <div th:if="${session.usuarioLogado.perfil == 'USER'}" class="ex-check">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+
+                    <div class="ex-info" style="flex-grow: 1;">
+                        <h3 th:text="${ex.nomeExercicio}">Nome do Exercício</h3>
+                        <p>
+                            Séries: <span th:text="${ex.series} + ' x ' + ${ex.repeticoes}"></span> |
+                            Carga: <span th:text="${ex.peso ?: 'Livre'}"></span> |
+                            Descanso: <span th:text="${ex.descanso ?: 'Livre'}"></span>
+                        </p>
+                        <p th:if="${ex.observacoes != null and !ex.observacoes.isEmpty()}" style="font-size: 0.85rem; color: #999; margin-top: 5px;" th:text="'Obs: ' + ${ex.observacoes}"></p>
+                    </div>
+
+                    <div th:if="${session.usuarioLogado.perfil == 'ADMIN'}" style="display: flex; gap: 8px;">
+                        <a th:href="@{/exercicio/{id}/editar(id=${ex.id})}" class="btn btn-aviso btn-sm" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form th:action="@{/exercicio/{id}/excluir(id=${ex.id})}" method="post" style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                            <button type="submit" class="btn btn-danger btn-sm" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este exercício?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <div th:if="${#lists.isEmpty(exercicios)}" style="text-align: center; padding: 40px; background-color: #f8f9fa; border-radius: 12px; border: 2px dashed #ccc;">
+                <i class="fas fa-bed" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                <h3 style="color: #666; margin-top: 0;">Nenhum exercício cadastrado!</h3>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script th:if="${session.usuarioLogado.perfil == 'USER'}" th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const fichaId = /*[[${ficha.id}]]*/ '0';
+        const hoje = new Date().toISOString().split('T')[0];
+        const storageKey = `treino_concluido_ficha_${fichaId}_data_${hoje}`;
+
+        let exerciciosConcluidos = JSON.parse(localStorage.getItem(storageKey)) || [];
+        const cards = document.querySelectorAll('.exercicio-card');
+
+        cards.forEach(card => {
+            const exId = card.getAttribute('data-id');
+            if (exerciciosConcluidos.includes(exId)) {
+                card.classList.add('concluido');
+            }
+        });
+
+        atualizarProgresso();
+
+        window.toggleExercicio = function(card) {
+            const exId = card.getAttribute('data-id');
+            card.classList.toggle('concluido');
+
+            if (card.classList.contains('concluido')) {
+                if (!exerciciosConcluidos.includes(exId)) exerciciosConcluidos.push(exId);
+            } else {
+                exerciciosConcluidos = exerciciosConcluidos.filter(id => id !== exId);
+            }
+
+            localStorage.setItem(storageKey, JSON.stringify(exerciciosConcluidos));
+            atualizarProgresso();
+        };
+
+        function atualizarProgresso() {
+            const total = cards.length;
+            const concluidos = exerciciosConcluidos.length;
+            const porcentagem = total === 0 ? 0 : Math.round((concluidos / total) * 100);
+
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+
+            if (bar && text) {
+                bar.style.width = porcentagem + '%';
+                if (porcentagem === 100 && total > 0) {
+                    text.innerText = "🔥 TREINO FINALIZADO! 🔥";
+                    bar.style.background = "#28a745";
+                    text.style.color = "white";
+                    text.style.textShadow = "none";
+                } else {
+                    text.innerText = `${concluidos} de ${total} concluídos (${porcentagem}%)`;
+                    bar.style.background = "linear-gradient(90deg, var(--cor-primaria), #ff4d4d)";
+                    text.style.color = "#333";
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

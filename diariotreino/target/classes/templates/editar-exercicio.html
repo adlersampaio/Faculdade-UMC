@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Exercício</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+    <main class="main-content">
+        <div class="container" style="max-width: 600px; padding: 2.5rem;">
+            <h2>Editar Exercício</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 1.5rem;">Altere as configurações deste exercício.</p>
+
+            <form th:action="@{/exercicio/{id}/atualizar(id=${exercicio.id})}" method="post" style="margin-top: 0;">
+
+                <div class="form-group">
+                    <label>Nome do Exercício:</label>
+                    <input type="text" name="nomeExercicio" th:value="${exercicio.nomeExercicio}" required>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Séries:</label>
+                        <input type="number" name="series" th:value="${exercicio.series}" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Repetições:</label>
+                        <input type="number" name="repeticoes" th:value="${exercicio.repeticoes}" required>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Carga/Peso (Opcional):</label>
+                        <input type="text" name="peso" th:value="${exercicio.peso}">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Descanso (Opcional):</label>
+                        <input type="text" name="descanso" th:value="${exercicio.descanso}" placeholder="Ex: 60s">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observações (Opcional):</label>
+                    <textarea name="observacoes" rows="3" th:text="${exercicio.observacoes}"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-aviso">Atualizar Exercício</button>
+                    <a href="javascript:history.back()" class="btn btn-secundario">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

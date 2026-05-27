@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Muscle Fit - Login</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <img th:src="@{/images/logo-login.png}" alt="Muscle Fit Logo" style="max-width: 180px; height: auto;">
+        </div>
+
+        <form th:action="@{/logar}" method="post">
+            <div class="form-group">
+                <label>E-mail:</label>
+                <input type="email" name="email" required placeholder="seu@email.com">
+            </div>
+
+            <div class="form-group">
+                <label>Senha:</label>
+                <input type="password" name="senha" required placeholder="Sua senha">
+            </div>
+
+            <div th:if="${param.erro}" style="color: #e60000; text-align: center; margin-bottom: 15px; font-weight: bold;">
+                <p th:text="${param.erro[0]}"></p>
+            </div>
+
+            <button type="submit" class="btn-login">Acessar</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

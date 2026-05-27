@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Alunos</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+
+    <main class="main-content">
+        <div class="dashboard-container">
+            <div class="header">
+                <h2>Alunos Cadastrados</h2>
+                <a th:href="@{/admin/cadastrar-aluno}" class="btn-nova-ficha">+ Novo Aluno</a>
+            </div>
+
+            <p style="color: #666; margin-bottom: 20px;">Selecione um aluno abaixo para visualizar, criar ou editar as suas fichas de treino.</p>
+            <!-- BARRA DE BUSCA (atualizei a aparencia da barra, a lógica é a mesma)-->
+            <div class="search-container">
+                <form th:action="@{/admin/alunos}" method="GET" class="search-form">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar por nome do aluno...">
+                    </div>
+                    <button type="submit" class="btn-buscar">Buscar</button>
+                    <a th:href="@{/admin/alunos}" class="btn-limpar">Limpar</a>
+                </form>
+            </div>
+
+            <!-- RESULTADO DA BUSCA -->
+            <div th:if="${busca}" style="background-color: #d1ecf1; padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem; border-left: 4px solid #17a2b8;">
+                <p>Resultados para: <strong th:text="${busca}"></strong> (<span th:text="${#lists.size(alunos)}"></span> aluno(s))</p>
+            </div>
+
+            <table style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px;">
+                <thead>
+                <tr style="background-color: #f2f2f2; text-align: left;">
+                    <th style="padding: 12px; border-top-left-radius: 10px;">Nome</th>
+                    <th style="padding: 12px;">E-mail</th>
+                    <th style="padding: 12px;">Status</th>
+                    <th style="padding: 12px; text-align: center; border-top-right-radius: 10px;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="aluno : ${alunos}">
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;" th:text="${aluno.nome}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;" th:text="${aluno.email}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; font-weight: bold;"
+                        th:text="${aluno.ativo} ? 'Ativo' : 'Suspenso'"
+                        th:styleappend="${aluno.ativo} ? 'color: #28a745;' : 'color: #dc3545;'"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">
+                        <div class="btn-action-group">
+                            <a th:href="@{/admin/editar-aluno/{id}(id=${aluno.id})}"
+                               class="btn btn-edit btn-sm">Editar</a>
+
+                            <form th:action="@{/admin/suspender-usuario/{id}(id=${aluno.id})}" method="post" style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                                <button type="submit"
+                                        class="btn btn-sm"
+                                        th:classappend="${aluno.ativo} ? 'btn-danger' : 'btn-success'"
+                                        th:text="${aluno.ativo} ? 'Suspender' : 'Reativar'"
+                                        onclick="return confirm('Tem certeza que deseja alterar o status deste utilizador?')">Acao</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${#lists.isEmpty(alunos)}" style="text-align: center; padding: 20px; color: #666;">
+                <p th:if="${busca}">Nenhum aluno encontrado para "<span th:text="${busca}"></span>"</p>
+                <p th:unless="${busca}">Nenhum aluno cadastrado no sistema.</p>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

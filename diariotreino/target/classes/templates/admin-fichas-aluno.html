@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Fichas do Aluno</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+
+    <main class="main-content">
+        <div class="dashboard-container">
+            <div class="header">
+                <h2>Fichas de Treino de: <span th:text="${aluno.nome}"></span></h2>
+                <a th:href="@{/admin/nova-ficha}" class="btn-nova-ficha">+ Nova Ficha</a>
+            </div>
+
+            <table style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px;">
+                <thead>
+                <tr style="background-color: #f2f2f2; text-align: left;">
+                    <th style="padding: 12px; border-top-left-radius: 10px;">Dia</th>
+                    <th style="padding: 12px;">Treino</th>
+                    <th style="padding: 12px; text-align: center; border-top-right-radius: 10px;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ficha : ${fichas}">
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; font-weight: bold; color: var(--cor-primaria);" th:text="${ficha.diaDaSemana}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;" th:text="${ficha.nomeTreino}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">
+                        <a th:href="@{/ficha/{id}(id=${ficha.id})}" class="btn btn-sm" style="background-color: #555; color: white;">Ver Exercícios</a>
+
+                        <a th:href="@{/admin/editar-ficha/{id}(id=${ficha.id})}" class="btn btn-sm" style="background-color: var(--cor-secundaria); color: white;">Editar</a>
+
+                        <form th:action="@{/admin/excluir-ficha/{id}(id=${ficha.id})}" method="post" style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Excluir esta ficha?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${#lists.isEmpty(fichas)}" style="text-align: center; padding: 20px; color: #666;">
+                <p>Este aluno ainda não possui fichas de treino cadastradas.</p>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <a th:href="@{/admin/painel}" class="btn-limpar">Voltar ao Painel</a>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

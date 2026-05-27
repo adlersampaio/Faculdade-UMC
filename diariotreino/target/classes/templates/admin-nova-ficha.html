@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Ficha de Treino</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+
+    <main class="main-content">
+        <div class="dashboard-container" style="max-width: 450px;">
+            <h2>Criar Ficha para Aluno</h2>
+
+            <form th:action="@{/admin/salvar-ficha}" method="post">
+                <div class="form-group">
+                    <label for="alunoId">Selecione o Aluno:</label>
+                    <select id="alunoId" name="alunoId" class="form-control" required>
+                        <option value="">-- Escolha um Aluno --</option>
+                        <option th:each="aluno : ${alunos}" th:value="${aluno.id}" th:text="${aluno.nome}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nomeTreino">Nome do Treino:</label>
+                    <input type="text" id="nomeTreino" name="nomeTreino" class="form-control" required placeholder="Ex: Treino A - Peito e Tríceps">
+                </div>
+
+                <div class="form-group">
+                    <label for="diaDaSemana">Dia da Semana:</label>
+                    <select id="diaDaSemana" name="diaDaSemana" class="form-control" required>
+                        <option value="">-- Selecione o Dia --</option>
+                        <option value="Segunda-feira">Segunda-feira</option>
+                        <option value="Terça-feira">Terça-feira</option>
+                        <option value="Quarta-feira">Quarta-feira</option>
+                        <option value="Quinta-feira">Quinta-feira</option>
+                        <option value="Sexta-feira">Sexta-feira</option>
+                        <option value="Sábado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Salvar Ficha</button>
+                    <a th:href="@{/admin/painel}" class="btn-cancel">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

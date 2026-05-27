@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Treinos</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+    <main class="main-content">
+        <div class="dashboard-container">
+
+            <div class="header" style="border-bottom: none; padding-bottom: 0;">
+                <div>
+                    <h2 style="text-align: left; margin-bottom: 5px;">Olá, <span th:text="${session.usuarioLogado.nome}"></span>! 💪</h2>
+                    <p style="color: #666; margin-top: 0;">Hoje é <strong th:text="${diaAtual}"></strong>.</p>
+                </div>
+            </div>
+
+            <div th:if="${treinoDeHoje != null}" style="background: linear-gradient(135deg, var(--cor-primaria), #990000); color: white; padding: 1.8rem 1.5rem; border-radius: 12px; margin: 1.5rem 0; box-shadow: 0 8px 15px rgba(230,0,0,0.2); text-align: center; position: relative; overflow: hidden;">
+                <h3 style="margin-top: 0; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.8rem;">🔥 Treino de Hoje</h3>
+                <h1 style="font-size: 2.2rem; margin: 10px 0; color: white; font-weight: 900;" th:text="${treinoDeHoje.nomeTreino}"></h1>
+                <a th:href="@{/ficha/{id}(id=${treinoDeHoje.id})}" class="btn" style="background-color: white; color: var(--cor-primaria); font-size: 1rem; padding: 12px 30px; margin-top: 15px; border-radius: 50px; font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">COMEÇAR TREINO</a>
+            </div>
+
+            <div th:if="${treinoDeHoje == null}" style="background-color: #f8f9fa; padding: 1.8rem 1.5rem; border-radius: 12px; margin: 1.5rem 0; text-align: center; border: 2px dashed #ccc;">
+                <h1 style="font-size: 2.2rem; margin: 10px 0; color: #444;">💤 Dia de Descanso!</h1>
+                <p style="color: #666; font-size: 1rem;">Não tem nenhum treino programado para hoje. Aproveita para recuperar as energias!</p>
+            </div>
+
+
+            <h3 style="margin-top: 2.5rem; color: var(--cor-secundaria); border-bottom: 2px solid #eee; padding-bottom: 10px;">O seu Plano Completo (<span th:text="${totalFichas}"></span>)</h3>
+
+            <table style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px;" th:if="${not #lists.isEmpty(minhasFichas)}">
+                <thead>
+                <tr style="background-color: #f2f2f2; text-align: left;">
+                    <th style="padding: 12px; border-top-left-radius: 10px;">Dia</th>
+                    <th style="padding: 12px;">Treino</th>
+                    <th style="padding: 12px; text-align: center; border-top-right-radius: 10px;">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ficha : ${minhasFichas}">
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; font-weight: bold; color: var(--cor-primaria);" th:text="${ficha.diaDaSemana ?: 'Sem dia definido'}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; font-weight: bold;" th:text="${ficha.nomeTreino}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">
+                        <a th:href="@{/ficha/{id}(id=${ficha.id})}" class="btn btn-sm" style="background-color: var(--cor-secundaria); color: white;">Ver Ficha</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${#lists.isEmpty(minhasFichas)}" class="fichas-lista" style="margin-top: 20px;">
+                <p>Ainda não tem fichas atribuídas. Peça ao seu Personal Trainer para criar o seu plano de treino!</p>
+            </div>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>
