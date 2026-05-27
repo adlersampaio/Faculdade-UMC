@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Personais</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+
+    <main class="main-content">
+        <div class="dashboard-container">
+            <div class="header">
+                <h2>Personais Cadastrados</h2>
+                <a th:href="@{/admin/cadastrar-personal}" class="btn-nova-ficha">+ Novo Personal</a>
+            </div>
+
+            <div class="search-container">
+                <form th:action="@{/admin/personais}" method="GET" class="search-form">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar por nome do personal...">
+                    </div>
+                    <button type="submit" class="btn-buscar">Buscar</button>
+                    <a th:href="@{/admin/personais}" class="btn-limpar">Limpar</a>
+                </form>
+            </div>
+
+            <div th:if="${busca}" style="background-color: #d1ecf1; padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem; border-left: 4px solid #17a2b8;">
+                <p>Resultados para: <strong th:text="${busca}"></strong> (<span th:text="${#lists.size(personais)}"></span> personal(is))</p>
+            </div>
+
+            <table style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px;">
+                <thead>
+                <tr style="background-color: #f2f2f2; text-align: left;">
+                    <th style="padding: 12px; border-top-left-radius: 10px;">Nome</th>
+                    <th style="padding: 12px;">E-mail</th>
+                    <th style="padding: 12px; text-align: center; border-top-right-radius: 10px;">Acoes</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${personais}">
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;" th:text="${p.nome}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;" th:text="${p.email}"></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">
+
+                        <span th:if="${session.usuarioLogado.id == p.id}"
+                              style="color: #6c757d; font-weight: bold; font-style: italic; display: inline-block; padding: 8px 14px;">
+                            (Voce)
+                        </span>
+
+                        <form th:unless="${session.usuarioLogado.id == p.id}"
+                              th:action="@{/admin/excluir-usuario/{id}(id=${p.id})}" method="post"
+                              style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Excluir este personal?')">Excluir</button>
+                        </form>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${#lists.isEmpty(personais)}" style="text-align: center; padding: 20px; color: #666;">
+                <p th:if="${busca}">Nenhum personal encontrado para "<span th:text="${busca}"></span>"</p>
+                <p th:unless="${busca}">Nenhum personal cadastrado no sistema.</p>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

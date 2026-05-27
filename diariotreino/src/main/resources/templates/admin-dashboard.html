@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Personal</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/images/fav-icon.png}">
+</head>
+<body>
+<div class="app-layout">
+    <nav th:replace="~{fragments/menu :: sidebar}"></nav>
+    <main class="main-content">
+        <div class="dashboard-container">
+
+            <div style="background: linear-gradient(135deg, var(--cor-secundaria), #333); color: white; padding: 2.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                <h1 style="margin: 0; font-size: 2.2rem; border-bottom: none;">Bem-vindo(a), <span th:text="${session.usuarioLogado.nome}" style="color: var(--cor-primaria);"></span>!</h1>
+                <p style="margin-top: 10px; font-size: 1.1rem; color: #ccc;">Visão geral da plataforma.</p>
+            </div>
+
+            <h2 style="text-align: left; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">Estatísticas da Academia</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-card-info">
+                        <h3 th:text="${totalAlunos}">0</h3>
+                        <p>Alunos Ativos</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="stat-card-info">
+                        <h3 th:text="${totalFichas}">0</h3>
+                        <p>Fichas de Treino</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="stat-card-info">
+                        <h3 th:text="${totalExercicios}">0</h3>
+                        <p>Exercícios Prescritos</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="stat-card-info">
+                        <h3 th:text="${totalPersonais}">0</h3>
+                        <p>Personais</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top: 30px; display: flex; gap: 15px;">
+                <a th:href="@{/admin/nova-ficha}" class="btn-salvar" style="padding: 15px 25px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; text-transform: uppercase;">
+                    <i class="fas fa-plus-circle"></i> Nova Ficha Rápida
+                </a>
+                <a th:href="@{/admin/cadastrar-aluno}" class="btn-cancelar" style="background-color: var(--cor-secundaria); padding: 15px 25px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; text-transform: uppercase;">
+                    <i class="fas fa-user-plus"></i> Novo Aluno
+                </a>
+            </div>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>

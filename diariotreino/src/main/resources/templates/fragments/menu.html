@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="pt-br">
+<body>
+
+<nav class="sidebar" id="sidebar" th:fragment="sidebar">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <div class="sidebar-header">
+        <img th:src="@{/images/sidebarlogo.png}" alt="Muscle Fit" class="menu-text sidebar-logo">
+
+        <button class="toggle-btn" id="toggle-btn" title="Minimizar Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <th:block sec:authorize="hasRole('ADMIN')">
+            <li>
+                <a th:href="@{/admin/dashboard}">
+                    <i class="fas fa-chart-pie"></i> <span class="menu-text">Visão Geral</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/painel}">
+                    <i class="fas fa-dumbbell"></i> <span class="menu-text">Gerenciar Fichas</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/alunos}">
+                    <i class="fas fa-users"></i> <span class="menu-text">Gerenciar Alunos</span>
+                </a>
+            </li>
+
+            <th:block sec:authorize="authentication.name == 'admin@diario.com'">
+                <hr style="border-color: #495057; margin: 15px 0;">
+                <li>
+                    <a th:href="@{/admin/personais}">
+                        <i class="fas fa-user-shield"></i> <span class="menu-text">Administração</span>
+                    </a>
+                </li>
+            </th:block>
+        </th:block>
+
+        <th:block sec:authorize="hasRole('USER')">
+            <li>
+                <a th:href="@{/painel}">
+                    <i class="fas fa-clipboard-list"></i> <span class="menu-text">Meus Treinos</span>
+                </a>
+            </li>
+        </th:block>
+
+        <hr style="border-color: #333; margin: 15px 0; width: 100%;">
+        <li>
+            <a th:href="@{/perfil}">
+                <i class="fas fa-user-cog"></i> <span class="menu-text">Meu Perfil</span>
+            </a>
+        </li>
+
+        <li class="menu-sair">
+            <form id="form-sair" th:action="@{/sair}" method="post" style="display: none;"></form>
+
+            <a href="#" onclick="document.getElementById('form-sair').submit(); return false;">
+                <i class="fas fa-sign-out-alt"></i> <span class="menu-text">Sair do Sistema</span>
+            </a>
+        </li>
+    </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('toggle-btn');
+
+            if (localStorage.getItem('menuMinimizado') === 'true') {
+                sidebar.classList.add('collapsed');
+            }
+
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                const taMinimizado = sidebar.classList.contains('collapsed');
+                localStorage.setItem('menuMinimizado', taMinimizado);
+            });
+        });
+    </script>
+</nav>
+
+</body>
+</html>
