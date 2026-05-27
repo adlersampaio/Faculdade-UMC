@@ -22,8 +22,8 @@
                     <h3 id="app-dialog-title">Confirmar acao</h3>
                     <p id="app-dialog-message">Deseja continuar?</p>
                     <div class="app-dialog-actions">
-                        <button type="button" class="btn btn-cancel app-dialog-cancel">Cancelar</button>
                         <button type="button" class="btn btn-danger app-dialog-confirm">Confirmar</button>
+                        <button type="button" class="btn btn-cancel app-dialog-cancel">Cancelar</button>
                     </div>
                 </div>
             </div>

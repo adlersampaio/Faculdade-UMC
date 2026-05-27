@@ -11,6 +11,10 @@
     --cor-texto-claro: #ffffff;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 /* =========================================
    ESTILOS GERAIS E ESTRUTURA
    ========================================= */
@@ -21,6 +25,10 @@ body {
 }
 
 a { text-decoration: none; }
+
+img {
+    max-width: 100%;
+}
 
 h2 {
     text-align: center;
@@ -160,9 +168,13 @@ h2 {
 /* 4. Ajustes Específicos */
 .btn-login { width: 100%; margin-top: 10px; }
 .btn-sm { padding: 8px 14px; font-size: 0.85rem; border-radius: 6px; }
-.btn-action-group { display: flex; gap: 5px; justify-content: center; }
+.btn-action-group { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
 .form-actions { display: flex; gap: 15px; margin-top: 25px; }
 .form-actions > * { flex: 1; height: 50px; margin: 0 !important; }
+.form-row { display: flex; gap: 15px; }
+.form-row > .form-group { flex: 1; }
+.dashboard-actions { margin-top: 30px; display: flex; gap: 15px; }
+.dashboard-actions > * { flex: 1; }
 
 .btn-voltar {
     background-color: rgb(253 0 0 / 0.13);
@@ -238,7 +250,8 @@ h2 {
    MENU LATERAL (SIDEBAR)
    ========================================= */
 .sidebar {
-    width: 250px;
+    width: 260px;
+    flex: 0 0 260px;
     background-color: var(--cor-fundo-escuro);
     color: white;
     padding: 20px;
@@ -250,22 +263,29 @@ h2 {
     border-right: 2px solid var(--cor-secundaria);
 }
 
-.sidebar.collapsed { width: 75px; padding: 20px 10px; }
+.sidebar.collapsed { width: 75px; flex-basis: 75px; padding: 20px 10px; }
 .sidebar.collapsed .menu-text { display: none; }
 
 .sidebar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     border-bottom: 1px solid #333;
     padding-bottom: 15px;
     margin-bottom: 20px;
 }
 
-.sidebar-logo { max-width: 215px; height: auto; }
+.sidebar-logo {
+    width: 170px;
+    max-width: calc(100% - 42px);
+    height: auto;
+    object-fit: contain;
+}
 .sidebar.collapsed .sidebar-header { justify-content: center; border-bottom: none; }
 
 .toggle-btn {
+    flex: 0 0 auto;
     background: none;
     border: none;
     color: #adb5bd;
@@ -303,6 +323,23 @@ h2 {
 .sidebar-menu a i { font-size: 1.2rem; min-width: 25px; text-align: center; }
 .sidebar.collapsed .sidebar-menu a { padding: 12px 0; justify-content: center; }
 .sidebar-menu a:hover { background-color: var(--cor-primaria); color: #fff; }
+
+.sidebar-menu a.active {
+    background-color: rgba(230, 0, 0, 0.16);
+    color: #fff;
+    border-left: 3px solid var(--cor-primaria);
+    padding-left: 12px;
+}
+
+.sidebar-menu a.active i {
+    color: var(--cor-primaria);
+}
+
+.sidebar.collapsed .sidebar-menu a.active {
+    border-left: none;
+    box-shadow: inset 3px 0 0 var(--cor-primaria);
+    padding-left: 0;
+}
 
 .menu-sair { margin-top: auto; }
 .menu-sair a { color: #ff4d4d; }
@@ -455,6 +492,20 @@ form select { cursor: pointer; }
     box-shadow: 0 8px 25px rgba(230,0,0,0.15);
 }
 
+.stat-card-future {
+    border-left-color: #adb5bd;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    opacity: 0.92;
+}
+
+.stat-card-future .stat-card-icon {
+    color: #6c757d;
+}
+
+.stat-card-future .stat-card-info h3 {
+    font-size: 1.45rem;
+}
+
 .stat-card-icon {
     font-size: 2.8rem;
     color: var(--cor-primaria);
@@ -570,6 +621,11 @@ form select { cursor: pointer; }
 
 .exercicio-card.concluido .ex-info p span { color: #6c757d; }
 
+.exercise-actions {
+    display: flex;
+    gap: 8px;
+}
+
 /* =========================================
    MODAL DE CONFIRMACAO
    ========================================= */
@@ -659,31 +715,219 @@ form select { cursor: pointer; }
    RESPONSIVIDADE
    ========================================= */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    h2 {
+        font-size: 1.35rem;
+        line-height: 1.25;
+    }
+
+    h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2;
+    }
+
+    .app-layout {
+        flex-direction: column;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 16px;
+        overflow-x: hidden;
+    }
+
+    .sidebar, .sidebar.collapsed {
+        width: 100%;
+        flex: 0 0 auto;
+        padding: 12px;
+        border-right: none;
+        border-bottom: 2px solid var(--cor-secundaria);
+        white-space: normal;
+    }
+
+    .sidebar.collapsed .menu-text {
+        display: inline;
+    }
+
+    .sidebar-header {
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+
+    .sidebar.collapsed .sidebar-header {
+        justify-content: space-between;
+        border-bottom: 1px solid #333;
+    }
+
+    .sidebar-logo {
+        max-width: 160px;
+    }
+
+    .toggle-btn {
+        display: none;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .sidebar-menu hr {
+        display: none;
+    }
+
+    .sidebar-menu li {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+    }
+
+    .sidebar-menu a, .sidebar.collapsed .sidebar-menu a {
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .menu-sair {
+        margin-top: 0;
+    }
+
     .container, .dashboard-container {
         padding: 1.5rem 1rem;
-        margin: 15px;
-        width: auto;
+        margin: 0;
+        width: 100%;
+        max-width: 100% !important;
+        min-height: auto;
+    }
+
+    .container {
+        margin-top: 0;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 12px;
+    }
+
+    .header h2 {
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    .header .btn, .header .btn-nova-ficha, .header .btn-secundario {
+        width: 100%;
     }
 
     form { padding: 1.5rem; }
 
-    table { font-size: 0.9rem; }
-    table th, table td { padding: 8px; }
+    .form-container {
+        max-width: 100%;
+        margin: 16px 0;
+        padding: 24px 16px;
+    }
+
+    table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 0.9rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    .search-container {
+        padding: 16px;
+    }
+
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .search-input-wrapper {
+        width: 100%;
+    }
+
+    .search-form .btn, .search-form .btn-buscar, .search-form .btn-limpar {
+        width: 100%;
+    }
 
     .btn, .btn-login, .btn-nova-ficha, .btn-sair, .btn-voltar,
     .btn-salvar, .btn-cancelar, .btn-buscar, .btn-limpar,
-    .btn-submit, .btn-cancel, .btn-edit, .btn-delete, .btn-editar-form {
+    .btn-submit, .btn-cancel, .btn-edit, .btn-delete, .btn-editar-form,
+    .btn-danger, .btn-success {
         padding: 10px 15px;
         font-size: 0.85rem;
     }
 
-    .form-actions {
+    .form-actions, .form-row, .dashboard-actions {
         flex-direction: column;
         gap: 10px;
     }
 
     .form-actions > * {
         height: 45px;
+    }
+
+    .form-row > .form-group {
+        flex: none;
+    }
+
+    .login-wrapper {
+        height: auto;
+        min-height: 100vh;
+        padding: 16px;
+    }
+
+    .login-card {
+        width: 100% !important;
+        max-width: 420px;
+        padding: 2rem 1.5rem;
+    }
+
+    .stat-card {
+        padding: 20px 16px;
+    }
+
+    .stat-card-icon {
+        font-size: 2.2rem;
+        margin-right: 14px;
+    }
+
+    .exercicio-card {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .ex-check {
+        margin-right: 12px;
+    }
+
+    .ex-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .ex-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .exercise-actions {
+        width: 100%;
+        justify-content: flex-end;
     }
 
     .app-dialog-card {

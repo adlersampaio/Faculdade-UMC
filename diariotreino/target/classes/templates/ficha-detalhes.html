@@ -65,7 +65,7 @@
                         <p th:if="${ex.observacoes != null and !ex.observacoes.isEmpty()}" style="font-size: 0.85rem; color: #999; margin-top: 5px;" th:text="'Obs: ' + ${ex.observacoes}"></p>
                     </div>
 
-                    <div th:if="${session.usuarioLogado.perfil == 'ADMIN'}" style="display: flex; gap: 8px;">
+                    <div th:if="${session.usuarioLogado.perfil == 'ADMIN'}" class="exercise-actions">
                         <a th:href="@{/exercicio/{id}/editar(id=${ex.id})}" class="btn btn-aviso btn-sm" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>

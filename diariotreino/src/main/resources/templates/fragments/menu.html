@@ -19,17 +19,17 @@
 
         <th:block sec:authorize="hasRole('ADMIN')">
             <li>
-                <a th:href="@{/admin/dashboard}">
+                <a th:href="@{/admin/dashboard}" data-active-exact="/admin/dashboard">
                     <i class="fas fa-chart-pie"></i> <span class="menu-text">Visão Geral</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/admin/painel}">
+                <a th:href="@{/admin/painel}" data-active-prefixes="/admin/painel,/admin/nova-ficha,/admin/fichas-aluno,/admin/editar-ficha,/ficha,/exercicio">
                     <i class="fas fa-dumbbell"></i> <span class="menu-text">Gerenciar Fichas</span>
                 </a>
             </li>
             <li>
-                <a th:href="@{/admin/alunos}">
+                <a th:href="@{/admin/alunos}" data-active-prefixes="/admin/alunos,/admin/cadastrar-aluno,/admin/editar-aluno">
                     <i class="fas fa-users"></i> <span class="menu-text">Gerenciar Alunos</span>
                 </a>
             </li>
@@ -37,7 +37,7 @@
             <th:block sec:authorize="authentication.name == 'admin@diario.com'">
                 <hr style="border-color: #495057; margin: 15px 0;">
                 <li>
-                    <a th:href="@{/admin/personais}">
+                    <a th:href="@{/admin/personais}" data-active-prefixes="/admin/personais,/admin/cadastrar-personal">
                         <i class="fas fa-user-shield"></i> <span class="menu-text">Administração</span>
                     </a>
                 </li>
@@ -46,7 +46,7 @@
 
         <th:block sec:authorize="hasRole('USER')">
             <li>
-                <a th:href="@{/painel}">
+                <a th:href="@{/painel}" data-active-prefixes="/painel,/ficha">
                     <i class="fas fa-clipboard-list"></i> <span class="menu-text">Meus Treinos</span>
                 </a>
             </li>
@@ -54,7 +54,7 @@
 
         <hr style="border-color: #333; margin: 15px 0; width: 100%;">
         <li>
-            <a th:href="@{/perfil}">
+            <a th:href="@{/perfil}" data-active-exact="/perfil">
                 <i class="fas fa-user-cog"></i> <span class="menu-text">Meu Perfil</span>
             </a>
         </li>
@@ -82,6 +82,25 @@
                 const taMinimizado = sidebar.classList.contains('collapsed');
                 localStorage.setItem('menuMinimizado', taMinimizado);
             });
+
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.sidebar-menu a[data-active-exact], .sidebar-menu a[data-active-prefixes]')
+                .forEach(function(link) {
+                    const exact = link.dataset.activeExact;
+                    const prefixes = (link.dataset.activePrefixes || '')
+                        .split(',')
+                        .map(function(prefix) { return prefix.trim(); })
+                        .filter(Boolean);
+
+                    const isExact = exact && currentPath === exact;
+                    const isPrefix = prefixes.some(function(prefix) {
+                        return currentPath === prefix || currentPath.startsWith(prefix + '/');
+                    });
+
+                    if (isExact || isPrefix) {
+                        link.classList.add('active');
+                    }
+                });
         });
     </script>
     <script th:src="@{/dialogs.js}"></script>

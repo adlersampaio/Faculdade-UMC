@@ -53,13 +53,29 @@
                     </div>
                 </div>
 
+                <div class="stat-card stat-card-future">
+                    <div class="stat-card-icon"><i class="fas fa-calendar-plus"></i></div>
+                    <div class="stat-card-info">
+                        <h3>Em breve</h3>
+                        <p>Agenda de Treinos</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-card-future">
+                    <div class="stat-card-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-card-info">
+                        <h3>Em breve</h3>
+                        <p>Relatorios</p>
+                    </div>
+                </div>
+
             </div>
 
-            <div style="margin-top: 30px; display: flex; gap: 15px;">
-                <a th:href="@{/admin/nova-ficha}" class="btn-salvar" style="padding: 15px 25px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; text-transform: uppercase;">
-                    <i class="fas fa-plus-circle"></i> Nova Ficha Rápida
+            <div class="dashboard-actions">
+                <a th:href="@{/admin/nova-ficha}" class="btn-salvar" style="padding: 15px 25px; border-radius: 8px; font-weight: bold; text-align: center; text-transform: uppercase;">
+                    <i class="fas fa-plus-circle"></i> Nova Ficha
                 </a>
-                <a th:href="@{/admin/cadastrar-aluno}" class="btn-cancelar" style="background-color: var(--cor-secundaria); padding: 15px 25px; border-radius: 8px; font-weight: bold; flex: 1; text-align: center; text-transform: uppercase;">
+                <a th:href="@{/admin/cadastrar-aluno}" class="btn-cancelar" style="background-color: var(--cor-secundaria); padding: 15px 25px; border-radius: 8px; font-weight: bold; text-align: center; text-transform: uppercase;">
                     <i class="fas fa-user-plus"></i> Novo Aluno
                 </a>
             </div>

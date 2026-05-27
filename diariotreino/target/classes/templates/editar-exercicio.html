@@ -21,23 +21,23 @@
                     <input type="text" name="nomeExercicio" th:value="${exercicio.nomeExercicio}" required>
                 </div>
 
-                <div style="display: flex; gap: 15px;">
-                    <div class="form-group" style="flex: 1;">
+                <div class="form-row">
+                    <div class="form-group">
                         <label>Séries:</label>
                         <input type="number" name="series" th:value="${exercicio.series}" required>
                     </div>
-                    <div class="form-group" style="flex: 1;">
+                    <div class="form-group">
                         <label>Repetições:</label>
                         <input type="number" name="repeticoes" th:value="${exercicio.repeticoes}" required>
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 15px;">
-                    <div class="form-group" style="flex: 1;">
+                <div class="form-row">
+                    <div class="form-group">
                         <label>Carga/Peso (Opcional):</label>
                         <input type="text" name="peso" th:value="${exercicio.peso}">
                     </div>
-                    <div class="form-group" style="flex: 1;">
+                    <div class="form-group">
                         <label>Descanso (Opcional):</label>
                         <input type="text" name="descanso" th:value="${exercicio.descanso}" placeholder="Ex: 60s">
                     </div>
