@@ -34,8 +34,12 @@
 
                         <a th:href="@{/admin/editar-ficha/{id}(id=${ficha.id})}" class="btn btn-sm" style="background-color: var(--cor-secundaria); color: white;">Editar</a>
 
-                        <form th:action="@{/admin/excluir-ficha/{id}(id=${ficha.id})}" method="post" style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Excluir esta ficha?')">Excluir</button>
+                        <form th:action="@{/admin/excluir-ficha/{id}(id=${ficha.id})}"
+                              method="post"
+                              data-confirm-title="Excluir ficha"
+                              data-confirm-message="Tem certeza que deseja excluir esta ficha?"
+                              style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                         </form>
                     </td>
                 </tr>

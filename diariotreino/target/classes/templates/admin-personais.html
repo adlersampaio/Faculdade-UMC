@@ -54,9 +54,10 @@
 
                         <form th:unless="${session.usuarioLogado.id == p.id}"
                               th:action="@{/admin/excluir-usuario/{id}(id=${p.id})}" method="post"
+                              data-confirm-title="Excluir personal"
+                              data-confirm-message="Tem certeza que deseja excluir este personal?"
                               style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Excluir este personal?')">Excluir</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                         </form>
 
                     </td>

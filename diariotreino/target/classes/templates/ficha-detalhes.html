@@ -69,8 +69,12 @@
                         <a th:href="@{/exercicio/{id}/editar(id=${ex.id})}" class="btn btn-aviso btn-sm" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <form th:action="@{/exercicio/{id}/excluir(id=${ex.id})}" method="post" style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
-                            <button type="submit" class="btn btn-danger btn-sm" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este exercício?')">
+                        <form th:action="@{/exercicio/{id}/excluir(id=${ex.id})}"
+                              method="post"
+                              data-confirm-title="Excluir exercicio"
+                              data-confirm-message="Tem certeza que deseja excluir este exercicio?"
+                              style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                            <button type="submit" class="btn btn-danger btn-sm" title="Excluir">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>

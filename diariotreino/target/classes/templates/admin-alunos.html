@@ -57,12 +57,15 @@
                             <a th:href="@{/admin/editar-aluno/{id}(id=${aluno.id})}"
                                class="btn btn-edit btn-sm">Editar</a>
 
-                            <form th:action="@{/admin/suspender-usuario/{id}(id=${aluno.id})}" method="post" style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
+                            <form th:action="@{/admin/suspender-usuario/{id}(id=${aluno.id})}"
+                                  method="post"
+                                  data-confirm-title="Alterar status"
+                                  data-confirm-message="Tem certeza que deseja alterar o status deste aluno?"
+                                  style="display: inline; padding: 0; margin: 0; border: 0; background: transparent;">
                                 <button type="submit"
                                         class="btn btn-sm"
                                         th:classappend="${aluno.ativo} ? 'btn-danger' : 'btn-success'"
-                                        th:text="${aluno.ativo} ? 'Suspender' : 'Reativar'"
-                                        onclick="return confirm('Tem certeza que deseja alterar o status deste utilizador?')">Acao</button>
+                                        th:text="${aluno.ativo} ? 'Suspender' : 'Reativar'">Acao</button>
                             </form>
                         </div>
                     </td>

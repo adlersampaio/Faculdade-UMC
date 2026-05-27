@@ -178,7 +178,7 @@ doc.add_paragraph('Anotação: @Bean CommandLineRunner - Executa automaticamente
 
 doc.add_paragraph()
 doc.add_paragraph('Lógica:', style='List Bullet')
-doc.add_paragraph('Verifica se existe admin com email "admin@diario.com" e senha "admin123"', style='List Bullet 2')
+doc.add_paragraph('Verifica se existe admin com email "admin@diario.com" e senha "123456"', style='List Bullet 2')
 doc.add_paragraph('Se NÃO existir, cria um novo admin automaticamente', style='List Bullet 2')
 doc.add_paragraph('Se existir, não faz nada', style='List Bullet 2')
 
