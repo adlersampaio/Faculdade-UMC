@@ -223,9 +223,11 @@ public class AdminController {
 
     @PostMapping("/atualizar-aluno")
     public String atualizarAluno(@RequestParam Long id, @RequestParam String nome,
-                                 @RequestParam String email, HttpSession session, Model model) {
+                                 @RequestParam String email,
+                                 @RequestParam(required = false) String novaSenha,
+                                 HttpSession session, Model model) {
         Usuario logado = (Usuario) session.getAttribute("usuarioLogado");
-        if (logado == null || !"ADMIN".equals(logado.getPerfil())) return "redirect:/";
+        if (logado == null || !"ADMIN".equals(logado.getPerfil())) return "redirect:/admin/alunos";
 
         Optional<Usuario> alunoOpt = usuarioRepository.findById(id);
         if (alunoOpt.isEmpty() || !"USER".equals(alunoOpt.get().getPerfil())) {
@@ -243,6 +245,12 @@ public class AdminController {
         Usuario aluno = alunoOpt.get();
         aluno.setNome(nome);
         aluno.setEmail(emailNormalizado);
+
+        // Se uma nova senha foi fornecida, atualizar a senha do aluno
+        if (novaSenha != null && !novaSenha.trim().isEmpty()) {
+            aluno.setSenha(passwordEncoder.encode(novaSenha));
+        }
+
         usuarioRepository.save(aluno);
 
         return "redirect:/admin/alunos";

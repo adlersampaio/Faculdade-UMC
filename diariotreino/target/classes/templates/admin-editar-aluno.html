@@ -27,6 +27,15 @@
                     <input type="email" name="email" th:value="${aluno.email}" required>
                 </div>
 
+                <div class="form-group">
+                    <label>Gerar Nova Senha Provisória:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="checkbox" id="resetSenha" name="resetSenha" style="width: 20px; height: 20px; cursor: pointer;" onchange="toggleSenhaInput()">
+                        <input type="password" id="novaSenha" name="novaSenha" placeholder="Digite a nova senha provisória" disabled style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <small style="color: #666; margin-top: 5px; display: block;">Marque a caixa para definir uma nova senha provisória para o aluno</small>
+                </div>
+
                 <div th:if="${erro}" style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 15px; font-weight: bold;">
                     <p style="margin:0;" th:text="${erro}"></p>
                 </div>
@@ -39,5 +48,20 @@
         </div>
     </main>
 </div>
+
+<script>
+    function toggleSenhaInput() {
+        const checkbox = document.getElementById('resetSenha');
+        const senhaInput = document.getElementById('novaSenha');
+
+        if (checkbox.checked) {
+            senhaInput.disabled = false;
+            senhaInput.focus();
+        } else {
+            senhaInput.disabled = true;
+            senhaInput.value = '';
+        }
+    }
+</script>
 </body>
 </html>

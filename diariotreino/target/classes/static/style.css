@@ -943,3 +943,23 @@ form select { cursor: pointer; }
         width: 100%;
     }
 }
+
+/* FIX: Garantir que o botão de sair sempre esteja visível */
+.sidebar-menu {
+    min-height: 300px;
+}
+
+.menu-sair {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+}
+
+.menu-sair a {
+    color: #ff4d4d;
+}
+
+.menu-sair a:hover {
+    background-color: #ff4d4d;
+    color: white;
+}

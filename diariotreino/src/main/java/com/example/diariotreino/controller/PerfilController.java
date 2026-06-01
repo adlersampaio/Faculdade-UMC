@@ -39,6 +39,7 @@ public class PerfilController {
     @PostMapping("/perfil/atualizar")
     public String atualizarPerfil(
             @RequestParam String nome,
+            @RequestParam String email,
             @RequestParam String telefone,
             @RequestParam String endereco,
             @RequestParam("foto") MultipartFile foto,
@@ -51,6 +52,16 @@ public class PerfilController {
         if (usuarioOpt.isPresent()) {
             Usuario u = usuarioOpt.get();
             u.setNome(nome);
+
+            // Validar e atualizar e-mail
+            String emailNormalizado = normalizarEmail(email);
+            if (!u.getEmail().equals(emailNormalizado) && usuarioRepository.existsByEmail(emailNormalizado)) {
+                model.addAttribute("erro", "Este e-mail já está em uso por outro usuário.");
+                model.addAttribute("usuario", u);
+                return "perfil";
+            }
+            u.setEmail(emailNormalizado);
+
             u.setTelefone(telefone);
             u.setEndereco(endereco);
 
@@ -86,5 +97,9 @@ public class PerfilController {
         }
 
         return "redirect:/perfil?sucesso=true";
+    }
+
+    private String normalizarEmail(String email) {
+        return email == null ? "" : email.trim().toLowerCase();
     }
 }
