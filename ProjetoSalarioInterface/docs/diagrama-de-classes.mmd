@@ -1,0 +1,57 @@
+classDiagram
+    direction LR
+
+    class FormFuncionario {
+        -func : Funcionario
+        -txtNomeFuncionario : JTextField
+        -txtCargo : JTextField
+        -txtSalarioBruto : JTextField
+        -txtFaltas : JTextField
+        -txtInss : JTextField
+        -txtIr : JTextField
+        -txtValorFaltas : JTextField
+        -txtSalarioLiquido : JTextField
+        -btnCadastrar : JButton
+        -btnExibir : JButton
+        -btnCalcularFolha : JButton
+        +FormFuncionario()
+        +main(args : String[]) void$
+        -montarTela() void
+        -registrarEventos() void
+        -cadastrar() void
+        -exibir() void
+        -calcularFolha() void
+        -existeFuncionario() boolean
+        -lerNumero(texto : String) double
+        -lerFaltas(texto : String) double
+        -limparResultados() void
+        -avisar(mensagem : String) void
+    }
+
+    class Funcionario {
+        +ALIQUOTA_INSS : double$
+        +ALIQUOTA_IR_ALTA : double$
+        +ALIQUOTA_IR_MEDIA : double$
+        +ALIQUOTA_IR_ISENTA : double$
+        +TETO_IR : double$
+        +PISO_IR : double$
+        +DIAS_DO_MES : int$
+        +HORAS_DO_DIA : int$
+        +nomeFuncionario : String
+        +cargo : String
+        +salario : double
+        +Funcionario()
+        +Funcionario(nomeFuncionario : String, cargo : String, salario : double)
+        +calcInss() double
+        +calcIr() double
+        +calcFaltas(faltas : double) double
+        +calcSalarioLiq(desc : double) double
+        +toString() String
+    }
+
+    class JFrame {
+        <<javax.swing>>
+    }
+
+    JFrame <|-- FormFuncionario : herda
+    FormFuncionario --> "1" Funcionario : func

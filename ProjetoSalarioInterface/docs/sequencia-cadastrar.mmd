@@ -1,0 +1,23 @@
+sequenceDiagram
+    autonumber
+    actor Usuario as Usuário
+    participant Tela as :FormFuncionario
+    participant Func as func:Funcionario
+
+    Usuario->>Tela: preenche nome, cargo e salário bruto
+    Usuario->>Tela: clique em [Cadastrar]
+    activate Tela
+    Tela->>Tela: cadastrar()
+    Tela->>Tela: lerNumero(txtSalarioBruto)
+
+    alt campos inválidos (vazios ou salário <= 0)
+        Tela-->>Usuario: JOptionPane "Informe o nome / salário inválido"
+    else dados válidos
+        Tela->>Func: new Funcionario(nome, cargo, salario)
+        activate Func
+        Func-->>Tela: objeto criado
+        deactivate Func
+        Tela->>Tela: limparResultados()
+        Tela-->>Usuario: JOptionPane "Funcionário cadastrado com sucesso!"
+    end
+    deactivate Tela

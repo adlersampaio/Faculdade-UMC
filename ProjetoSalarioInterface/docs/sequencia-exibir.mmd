@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    actor Usuario as Usuário
+    participant Tela as :FormFuncionario
+    participant Func as func:Funcionario
+
+    Usuario->>Tela: clique em [Exibir]
+    activate Tela
+    Tela->>Tela: exibir()
+    Tela->>Tela: existeFuncionario()
+
+    alt nenhum funcionário cadastrado
+        Tela-->>Usuario: JOptionPane de aviso "Cadastre um funcionário"
+    else funcionário cadastrado
+        Tela->>Func: nomeFuncionario
+        activate Func
+        Func-->>Tela: nome
+        Tela->>Func: cargo
+        Func-->>Tela: cargo
+        Tela->>Func: salario
+        Func-->>Tela: salário bruto
+        deactivate Func
+        Tela-->>Usuario: JOptionPane com nome, cargo e salário bruto
+    end
+    deactivate Tela

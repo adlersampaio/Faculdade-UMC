@@ -1,0 +1,31 @@
+@startuml sequencia-cadastrar
+' Diagrama de Sequencia - Caso de uso "Cadastrar funcionario"
+autonumber
+skinparam shadowing false
+title Diagrama de Sequência - Cadastrar funcionário
+
+actor Usuário as U
+participant ":FormFuncionario" as Tela
+participant "func:Funcionario" as Func
+
+U -> Tela : preenche nome, cargo e salário bruto
+U -> Tela : clique em [Cadastrar]
+activate Tela
+
+Tela -> Tela : cadastrar()
+Tela -> Tela : lerNumero(txtSalarioBruto)
+
+alt campos inválidos (vazios ou salário <= 0)
+  Tela --> U : JOptionPane de aviso
+else dados válidos
+  create Func
+  Tela -> Func : new Funcionario(nome, cargo, salario)
+  activate Func
+  Func --> Tela : objeto criado
+  deactivate Func
+  Tela -> Tela : limparResultados()
+  Tela --> U : JOptionPane "Funcionário cadastrado com sucesso!"
+end
+
+deactivate Tela
+@enduml

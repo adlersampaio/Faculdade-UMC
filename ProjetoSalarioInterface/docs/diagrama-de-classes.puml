@@ -1,0 +1,76 @@
+@startuml diagrama-de-classes
+' Diagrama de Classes - Projeto Folha de Pagamento (Salario Liquido)
+' Atividade Pratica de Desenvolvimento - UMC
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+hide empty members
+
+title Diagrama de Classes - Cálculo do Salário Líquido
+
+class "javax.swing.JFrame" as JFrame
+
+class FormFuncionario {
+  - func : Funcionario
+  --
+  - txtNomeFuncionario : JTextField
+  - txtCargo : JTextField
+  - txtSalarioBruto : JTextField
+  - txtFaltas : JTextField
+  - txtInss : JTextField
+  - txtIr : JTextField
+  - txtValorFaltas : JTextField
+  - txtSalarioLiquido : JTextField
+  - btnCadastrar : JButton
+  - btnExibir : JButton
+  - btnCalcularFolha : JButton
+  --
+  + FormFuncionario()
+  + {static} main(args : String[]) : void
+  - montarTela() : void
+  - registrarEventos() : void
+  - cadastrar() : void
+  - exibir() : void
+  - calcularFolha() : void
+  - existeFuncionario() : boolean
+  - lerNumero(texto : String) : double
+  - lerFaltas(texto : String) : double
+  - limparResultados() : void
+  - avisar(mensagem : String) : void
+}
+
+class Funcionario {
+  + {static} ALIQUOTA_INSS : double = 0.05
+  + {static} ALIQUOTA_IR_ALTA : double = 0.275
+  + {static} ALIQUOTA_IR_MEDIA : double = 0.12
+  + {static} ALIQUOTA_IR_ISENTA : double = 0.0
+  + {static} TETO_IR : double = 10000.00
+  + {static} PISO_IR : double = 5000.00
+  + {static} DIAS_DO_MES : int = 30
+  + {static} HORAS_DO_DIA : int = 8
+  --
+  + nomeFuncionario : String
+  + cargo : String
+  + salario : double
+  --
+  + Funcionario()
+  + Funcionario(nomeFuncionario : String, cargo : String, salario : double)
+  + calcInss() : double
+  + calcIr() : double
+  + calcFaltas(faltas : double) : double
+  + calcSalarioLiq(desc : double) : double
+  + toString() : String
+}
+
+JFrame <|-- FormFuncionario
+FormFuncionario "1" --> "1" Funcionario : func
+
+note right of Funcionario
+  Todas as regras de cálculo ficam
+  nesta classe (um método por cálculo):
+  INSS = 5%
+  IR   = 27,5% / 12% / isento
+  Faltas = (salário / 30 / 8) x faltas
+end note
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml sequencia-exibir
+' Diagrama de Sequencia - Caso de uso "Exibir dados do funcionario"
+autonumber
+skinparam shadowing false
+title Diagrama de Sequência - Exibir dados do funcionário
+
+actor Usuário as U
+participant ":FormFuncionario" as Tela
+participant "func:Funcionario" as Func
+
+U -> Tela : clique em [Exibir]
+activate Tela
+
+Tela -> Tela : exibir()
+Tela -> Tela : existeFuncionario()
+
+alt nenhum funcionário cadastrado
+  Tela --> U : JOptionPane de aviso "Cadastre um funcionário"
+else funcionário cadastrado
+  Tela -> Func : nomeFuncionario
+  activate Func
+  Func --> Tela : nome
+  Tela -> Func : cargo
+  Func --> Tela : cargo
+  Tela -> Func : salario
+  Func --> Tela : salário bruto
+  deactivate Func
+  Tela --> U : JOptionPane com nome, cargo e salário bruto
+end
+
+deactivate Tela
+@enduml

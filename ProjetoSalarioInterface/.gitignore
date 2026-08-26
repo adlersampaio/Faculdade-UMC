@@ -1,0 +1,3 @@
+# Saida da compilacao Java
+build/
+*.class

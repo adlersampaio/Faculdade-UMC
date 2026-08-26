@@ -1,0 +1,59 @@
+@startuml sequencia-calcular-folha
+' Diagrama de Sequencia - Caso de uso "Calcular folha / salario liquido"
+autonumber
+skinparam shadowing false
+title Diagrama de Sequência - Calcular folha (salário líquido)
+
+actor Usuário as U
+participant ":FormFuncionario" as Tela
+participant "func:Funcionario" as Func
+
+U -> Tela : informa a quantidade de faltas
+U -> Tela : clique em [Calcular Folha]
+activate Tela
+
+Tela -> Tela : calcularFolha()
+Tela -> Tela : existeFuncionario()
+
+alt nenhum funcionário cadastrado
+  Tela --> U : JOptionPane de aviso "Cadastre um funcionário"
+else funcionário cadastrado
+  Tela -> Tela : lerFaltas(txtFaltas)
+
+  Tela -> Func : calcInss()
+  activate Func
+  note right : inss = salario * 5%
+  Func --> Tela : inss
+  deactivate Func
+
+  Tela -> Func : calcIr()
+  activate Func
+  alt salário > 10.000,00
+    note right : ir = salario * 27,5%
+  else salário >= 5.000,00
+    note right : ir = salario * 12%
+  else salário < 5.000,00
+    note right : ir = 0 (isento)
+  end
+  Func --> Tela : ir
+  deactivate Func
+
+  Tela -> Func : calcFaltas(faltas)
+  activate Func
+  note right : valorFaltas = (salario / 30 / 8) * faltas
+  Func --> Tela : valorFaltas
+  deactivate Func
+
+  Tela -> Tela : totalDescontos = inss + ir + valorFaltas
+
+  Tela -> Func : calcSalarioLiq(totalDescontos)
+  activate Func
+  note right : liquido = salario - desc
+  Func --> Tela : salarioLiquido
+  deactivate Func
+
+  Tela --> U : exibe INSS, IR, valor das faltas e salário líquido
+end
+
+deactivate Tela
+@enduml
