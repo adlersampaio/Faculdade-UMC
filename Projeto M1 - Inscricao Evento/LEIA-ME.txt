@@ -1,0 +1,27 @@
+PROJETO M1 - INSCRIÇÃO PARA EVENTO
+Gabriel Gomes, Adler Augusto Vendramel Sampaio, Julia Nascimento Ignácio
+Entrega: 16/10/2026 até 23:59 (cada integrante envia o PDF)
+
+PASTAS
+  1 - Prototipo   prints das telas do protótipo (HTML)
+  2 - Diagramas   caso de uso, classes e arquitetura MVC (.drawio editável + .png)
+  3 - Codigo      projeto NetBeans (WebAppEvento), script do banco e driver MySQL
+  4 - Evidencias  guardar aqui os prints do sistema rodando
+  Relatorio M1 - Inscricao Evento.docx   documento ABNT (editar este)
+
+COMO RODAR
+  1. XAMPP: ligar Apache e MySQL.
+  2. phpMyAdmin > aba SQL > colar e executar "3 - Codigo/script_evento.sql".
+  3. NetBeans: File > Open Project > "3 - Codigo/WebAppEvento".
+     Se reclamar de servidor/biblioteca: Resolve Problems > escolher o Tomcat do
+     XAMPP e a biblioteca "MySQL" (mysql-connector-java-8.0.30.jar).
+  4. Run. Abre em http://localhost:8080/WebAppEvento/
+
+O QUE FALTA NO RELATÓRIO (.docx)
+  - Preencher [NOME DO CURSO] e [NOME DA DISCIPLINA] (capa e folha de rosto).
+  - Conferir o nome do professor na folha de rosto.
+  - Figura 1: print da página da Salesforce (o site bloqueia captura automática).
+  - Figuras 9 a 16: prints do sistema em execução (cada caixa amarela diz qual print).
+    Clicar na caixa amarela, apagar o texto e colar o print no lugar.
+  - Clicar com o botão direito no Sumário > Atualizar campo > Atualizar índice inteiro.
+  - Arquivo > Salvar como > PDF.

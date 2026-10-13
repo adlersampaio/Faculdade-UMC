@@ -1,0 +1,100 @@
+<mxfile host="Electron" version="28.2.8">
+  <diagram name="Arquitetura" id="Arquitetura">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="560" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c1" value="Arquitetura da Solução (MVC) - Inscrição para Evento" style="text;strokeColor=none;fillColor=none;html=1;fontSize=20;fontStyle=1;verticalAlign=middle;align=center;" parent="1" vertex="1">
+          <mxGeometry x="160" y="10" width="760" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="VIEW&lt;br&gt;Frontend / Protótipo (HTML)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="20" y="60" width="230" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="CONTROLLER&lt;br&gt;CTRL (JSP)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="290" y="60" width="230" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="MODEL&lt;br&gt;Backend (Java)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="560" y="60" width="230" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" value="BANCO DE DADOS&lt;br&gt;MySQL / MariaDB" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;verticalAlign=top;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="830" y="60" width="230" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" value="index.html&lt;br&gt;(Menu principal)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="45" y="120" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" value="cadastrar/index.html&lt;br&gt;Formulário de inscrição" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="45" y="210" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" value="consultar/index.html&lt;br&gt;Consulta pelo Id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="45" y="310" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" value="consultar_nome/index.html&lt;br&gt;Consulta pelo nome" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="45" y="410" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" value="insc_cad.jsp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="315" y="210" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" value="insc_cons_id.jsp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="315" y="310" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" value="insc_cons_nome.jsp" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="315" y="410" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" value="&lt;b&gt;Inscricao&lt;/b&gt;&lt;br&gt;(model)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="585" y="130" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" value="&lt;b&gt;InscricaoDAO&lt;/b&gt;&lt;br&gt;(model.DAO)&lt;br&gt;cadastrar / consultarId / consultarNome" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="585" y="240" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c15" value="&lt;b&gt;ConectaBanco&lt;/b&gt;&lt;br&gt;(config) - JDBC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="585" y="380" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c16" value="Banco: evento&lt;br&gt;Tabela: inscricoes" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="865" y="240" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c17" value="" style="endArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="c6" target="c7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c18" value="" style="endArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="c6" target="c8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c19" value="" style="endArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="c6" target="c9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c20" value="POST" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c7" target="c10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c21" value="POST" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c8" target="c11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c22" value="POST" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c9" target="c12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c23" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c10" target="c14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c24" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c11" target="c14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c25" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c12" target="c14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c26" value="new" style="endArrow=classic;html=1;rounded=0;dashed=1;" parent="1" source="c10" target="c13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c27" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c14" target="c15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c28" value="SQL" style="endArrow=classic;html=1;rounded=0;" parent="1" source="c15" target="c16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c29" value="request ➜" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontColor=#2724ff;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="500" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c30" value="⬅ response (HTML gerado pelo JSP)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontColor=#2724ff;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="330" y="500" width="300" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
